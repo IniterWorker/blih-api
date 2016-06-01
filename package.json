@@ -1,0 +1,32 @@
+{
+  "name": "blih-api",
+  "version": "1.0.0",
+  "description": "A simple interface in JavaScript to use the Epitech system.",
+  "main": "/source/main.js",
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IniterWorker/blih-api.git"
+  },
+  "keywords": [
+    "blih",
+    "epitech",
+    "api"
+  ],
+  "author": "Walter Bonetti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IniterWorker/blih-api/issues"
+  },
+  "homepage": "https://github.com/IniterWorker/blih-api#readme",
+  "dependencies": {
+    "crypto": "0.0.3",
+    "request": "^2.72.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "should": "^9.0.0"
+  }
+}
