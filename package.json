@@ -1,6 +1,6 @@
 {
   "name": "blih-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple interface in JavaScript to use the Epitech system.",
   "main": "source/main.js",
   "scripts": {
@@ -26,6 +26,8 @@
     "request": "^2.72.0"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jsdoc": "^0.1.5",
     "mocha": "^2.5.3",
     "should": "^9.0.0"
   }
