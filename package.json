@@ -2,7 +2,7 @@
   "name": "blih-api",
   "version": "1.0.0",
   "description": "A simple interface in JavaScript to use the Epitech system.",
-  "main": "/source/main.js",
+  "main": "source/main.js",
   "scripts": {
     "test": "mocha test/*.js"
   },
