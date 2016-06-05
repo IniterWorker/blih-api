@@ -54,7 +54,7 @@ Blih.prototype.getSshKey = function (callback)
   this.createRequest({verb: "GET", path: "sshkey"}, undefined, callback);
 };
 
-Blih.prototype.createReposiroty = function (repository, callback)
+Blih.prototype.createRepository = function (repository, callback)
 {
   this.createRequest({verb: "POST", path: "repositories"}, {name: repository, type: "git"}, callback);
 };
