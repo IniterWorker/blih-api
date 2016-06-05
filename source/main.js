@@ -3,7 +3,7 @@
 * @Date:   2016-05-31T22:04:29+02:00
 * @Email:  walter.bonetti@epitech.eu
 * @Last modified by:   IniterWorker
-* @Last modified time: 2016-06-01T23:54:52+02:00
+* @Last modified time: 2016-06-05T22:55:10+02:00
 * @License: MIT
 */
 
@@ -32,6 +32,51 @@ Blih.prototype.getToken = function (password) {
 
 Blih.prototype.setBaseUrl = function (baseUrl) {
   this.data.baseUrl = baseUrl;
+};
+
+Blih.prototype.getRepositories = function (callback)
+{
+  this.createRequest({verb: "GET", path: "repositories"}, undefined, callback);
+};
+
+Blih.prototype.getAcl = function (repository, callback)
+{
+  this.createRequest({verb: "GET", path: "repositories/" + repository + "/acl"}, undefined, callback);
+};
+
+Blih.prototype.getRepositoriesInfo = function (repository, callback)
+{
+  this.createRequest({verb: "GET", path: "repositories/" + repository}, undefined, callback);
+};
+
+Blih.prototype.getSshKey = function (callback)
+{
+  this.createRequest({verb: "GET", path: "sshkey"}, undefined, callback);
+};
+
+Blih.prototype.createReposiroty = function (repository, callback)
+{
+  this.createRequest({verb: "POST", path: "repositories"}, {name: repository, type: "git"}, callback);
+};
+
+Blih.prototype.setAcl = function (repository, username, rights, callback)
+{
+  this.createRequest({verb: "POST", path: "repositories/" + repository + "/acl"}, {acl: rights, user: username}, callback);
+};
+
+Blih.prototype.setSshKey = function (sshkey, callback)
+{
+  this.createRequest({verb: "POST", path: "sshkey"}, {sshkey: key}, callback);
+};
+
+Blih.prototype.deleteSshKey = function (keyid, callback)
+{
+  this.createRequest({verb: "DELETE", path: "sshkey/" + keyid}, undefined, callback);
+};
+
+Blih.prototype.deleteRepository = function (repository, callback)
+{
+  this.createRequest({verb: "DELETE", path: "repositories/" + repository}, undefined, callback);
 };
 
 Blih.prototype.sendRequest = function (signed_json, verb, path, callback) {
