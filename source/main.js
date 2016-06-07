@@ -16,32 +16,21 @@ var request = require('request');
  * @param  {string} username Login
  * @param  {string} password Unix password
  */
-function Blih(username, password)
+function Blih()
 {
   this.data = {
-    username: username,
-    token: '',
     baseUrl: 'https://blih.epitech.eu/',
   }
-  this.setPassword(password);
 }
 
 /**
- * Blih function - set the Unix password
+ * Blih function - generate Token Unix
  * @param  {string} password Unix password
  */
-Blih.prototype.setPassword = function (password) {
+Blih.prototype.generateToken = function (password) {
   var token = crypto.createHash('sha512');
   token.update(password, 'utf8');
   this.data.token = token.digest('hex');
-};
-
-/**
- * Blih function - set the Token hash
- * @return {string} the token hash
- */
-Blih.prototype.getToken = function () {
-  return (this.data.token);
 };
 
 /**
@@ -55,92 +44,101 @@ Blih.prototype.setBaseUrl = function (baseUrl) {
 
 /**
 * Blih function - get all repositories name
+* @param  {json} userData {login: "", token: ""}
 * @param  {function} callback function(data)
 */
-Blih.prototype.getRepositories = function (callback)
+Blih.prototype.getRepositories = function (userData, callback)
 {
-  this.createRequest({verb: "GET", path: "repositories"}, undefined, callback);
+  this.createRequest(userData, {verb: "GET", path: "repositories"}, undefined, callback);
 };
 
 /**
 * Blih function - set acl on one repository
+* @param  {json} userData {login: "", token: ""}
 * @param  {string} repository name
 * @param  {function} callback function(data)
 */
-Blih.prototype.getAcl = function (repository, callback)
+Blih.prototype.getAcl = function (userData, repository, callback)
 {
-  this.createRequest({verb: "GET", path: "repositories/" + repository + "/acl"}, undefined, callback);
+  this.createRequest(userData, {verb: "GET", path: "repositories/" + repository + "/acl"}, undefined, callback);
 };
 
 /**
 * Blih function - get info on one repository
+* @param  {json} userData {login: "", token: ""}
 * @param  {string} repository name
 * @param  {function} callback function(data)
 */
-Blih.prototype.getRepositoriesInfo = function (repository, callback)
+Blih.prototype.getRepositoriesInfo = function (userData, repository, callback)
 {
   this.createRequest({verb: "GET", path: "repositories/" + repository}, undefined, callback);
 };
 
 /**
 * Blih function - list all sshkey
+* @param  {json} userData {login: "", token: ""}
 * @param  {function} callback function(data)
 */
-Blih.prototype.getSshKey = function (callback)
+Blih.prototype.getSshKey = function (userData, callback)
 {
   this.createRequest({verb: "GET", path: "sshkey"}, undefined, callback);
 };
 
 /**
 * Blih function - create a repository
+* @param  {json} userData {login: "", token: ""}
 * @param  {string} repository name
 * @param  {function} callback function(data)
 */
-Blih.prototype.createRepository = function (repository, callback)
+Blih.prototype.createRepository = function (userData, repository, callback)
 {
   this.createRequest({verb: "POST", path: "repositories"}, {name: repository, type: "git"}, callback);
 };
 
 /**
 * Blih function - create a repository
+* @param  {json} userData {login: "", token: ""}
 * @param  {string} repository name
 * @param  {string} unserame
 * @param  {string} rights [rwa]
 * @param  {function} callback function(data)
 */
-Blih.prototype.setAcl = function (repository, username, rights, callback)
+Blih.prototype.setAcl = function (userData, repository, username, rights, callback)
 {
   this.createRequest({verb: "POST", path: "repositories/" + repository + "/acl"}, {acl: rights, user: username}, callback);
 };
 
 /**
 * Blih function - upload sshkey
+* @param  {json} userData {login: "", token: ""}
 * @param  {string} rights [rwa]
 * @param  {function} callback function(data)
 */
-Blih.prototype.setSshKey = function (sshkey, callback)
+Blih.prototype.setSshKey = function (userData, sshkey, callback)
 {
   this.createRequest({verb: "POST", path: "sshkey"}, {sshkey: key}, callback);
 };
 
 /**
 * Blih function - delete sshkey
+* @param  {json} userData {login: "", token: ""}
 * @param  {string} keyid the id
 * @param  {function} callback function(data)
 */
-Blih.prototype.deleteSshKey = function (keyid, callback)
+Blih.prototype.deleteSshKey = function (userData, keyid, callback)
 {
-  this.createRequest({verb: "DELETE", path: "sshkey/" + keyid}, undefined, callback);
+  this.createRequest(userData, {verb: "DELETE", path: "sshkey/" + keyid}, undefined, callback);
 };
 
 /**
 * Blih function - upload sshkey
+* @param  {json} userData {login: "", token: ""}
 * @param  {string} rights [rwa]
 * @param  {function} callback function(data)
 */
-Blih.prototype.deleteRepository = function (repository, callback)
+Blih.prototype.deleteRepository = function (userData, repository, callback)
 {
-  this.createRequest({verb: "DELETE", path: "repositories/" + repository}, undefined, callback);
+  this.createRequest(userData, {verb: "DELETE", path: "repositories/" + repository}, undefined, callback);
 };
 
 /**
@@ -171,20 +169,20 @@ Blih.prototype.sendRequest = function (signed_json, verb, path, callback) {
 
 /**
 * Blih function - create a request at epitech blih server
+* @param  {json} userData {login: "", token: ""}
 * @param  {json} argData the arguments data
 * @param  {json} postData the post data information
 * @param  {function} callback function(data)
 */
-Blih.prototype.createRequest = function (argData, postData, callback)
+Blih.prototype.createRequest = function (userData, rgData, postData, callback)
 {
   var signatureData = {
-    user: "",
+    user: userData.login,
     signature: ""
   }
 
-  signatureData.user = this.data.username;
-  var hashing = crypto.createHmac('sha512', this.data.token);
-  hashing.update(this.data.username);
+  var hashing = crypto.createHmac('sha512', userData.token);
+  hashing.update(userData.login);
   if (postData !== undefined)
   {
     var string = JSON.stringify(postData, null, 4);
