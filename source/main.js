@@ -71,7 +71,7 @@ Blih.prototype.getAcl = function (userData, repository, callback)
 */
 Blih.prototype.getRepositoriesInfo = function (userData, repository, callback)
 {
-  this.createRequest({verb: "GET", path: "repositories/" + repository}, undefined, callback);
+  this.createRequest(userData, {verb: "GET", path: "repositories/" + repository}, undefined, callback);
 };
 
 /**
@@ -81,7 +81,7 @@ Blih.prototype.getRepositoriesInfo = function (userData, repository, callback)
 */
 Blih.prototype.getSshKey = function (userData, callback)
 {
-  this.createRequest({verb: "GET", path: "sshkey"}, undefined, callback);
+  this.createRequest(userData, {verb: "GET", path: "sshkey"}, undefined, callback);
 };
 
 /**
@@ -92,7 +92,7 @@ Blih.prototype.getSshKey = function (userData, callback)
 */
 Blih.prototype.createRepository = function (userData, repository, callback)
 {
-  this.createRequest({verb: "POST", path: "repositories"}, {name: repository, type: "git"}, callback);
+  this.createRequest(userData, {verb: "POST", path: "repositories"}, {name: repository, type: "git"}, callback);
 };
 
 /**
@@ -105,7 +105,7 @@ Blih.prototype.createRepository = function (userData, repository, callback)
 */
 Blih.prototype.setAcl = function (userData, repository, username, rights, callback)
 {
-  this.createRequest({verb: "POST", path: "repositories/" + repository + "/acl"}, {acl: rights, user: username}, callback);
+  this.createRequest(userData, {verb: "POST", path: "repositories/" + repository + "/acl"}, {acl: rights, user: username}, callback);
 };
 
 /**
@@ -116,7 +116,7 @@ Blih.prototype.setAcl = function (userData, repository, username, rights, callba
 */
 Blih.prototype.setSshKey = function (userData, sshkey, callback)
 {
-  this.createRequest({verb: "POST", path: "sshkey"}, {sshkey: key}, callback);
+  this.createRequest(userData, {verb: "POST", path: "sshkey"}, {sshkey: key}, callback);
 };
 
 /**
