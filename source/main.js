@@ -26,11 +26,12 @@ function Blih()
 /**
  * Blih function - generate Token Unix
  * @param  {string} password Unix password
+ * @return {string}
  */
 Blih.prototype.generateToken = function (password) {
   var token = crypto.createHash('sha512');
   token.update(password, 'utf8');
-  this.data.token = token.digest('hex');
+  return (token.digest('hex'));
 };
 
 /**
