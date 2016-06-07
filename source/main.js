@@ -175,7 +175,7 @@ Blih.prototype.sendRequest = function (signed_json, verb, path, callback) {
 * @param  {json} postData the post data information
 * @param  {function} callback function(data)
 */
-Blih.prototype.createRequest = function (userData, rgData, postData, callback)
+Blih.prototype.createRequest = function (userData, argData, postData, callback)
 {
   var signatureData = {
     user: userData.login,
