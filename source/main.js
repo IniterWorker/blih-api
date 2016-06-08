@@ -97,6 +97,17 @@ Blih.prototype.createRepository = function (userData, repository, callback)
 };
 
 /**
+* Blih function - getAcl on repository
+* @param  {json} userData {login: "", token: ""}
+* @param  {string} repository name
+* @param  {function} callback function(data)
+*/
+Blih.prototype.getAcl = function (userData, repository, callback)
+{
+  this.createRequest(userData, {verb: "GET", path: "repositories/" + repository + "/acl"}, undefined, callback);
+};
+
+/**
 * Blih function - create a repository
 * @param  {json} userData {login: "", token: ""}
 * @param  {string} repository name
