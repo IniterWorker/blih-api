@@ -2,8 +2,8 @@
 @Author: Walter Bonetti <IniterWorker>
 @Date:   2016-05-27T23:25:24+02:00
 @Email:  walter.bonetti@epitech.eu
-@Last modified by:   IniterWorker
-@Last modified time: 2016-06-06T01:47:57+02:00
+@Last modified by:   initerworker
+@Last modified time: 2016-06-12T22:54:35+02:00
 @License: MIT
 -->
 
@@ -21,9 +21,15 @@ npm install --save blih-api
 
 ```js
 var blihApi = require('blih-api');
-var Blih = new blihApi('login_x', 'UnixPassword');
+var Blih = new blihApi();
 
-Blih.getRepositories(function (data) {
+var userdata {
+  login: 'login_x',
+  password: '******',
+  token: Blih.generateToken('******')
+};
+
+Blih.getRepositories(userData, function (data) {
   for (key in data.repositories)
   {
     console.log(key);
