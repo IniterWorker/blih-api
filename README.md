@@ -21,15 +21,13 @@ npm install --save blih-api
 
 ```js
 var blihApi = require('blih-api');
-var Blih = new blihApi();
+var Blih = new blihApi("login_x", "passwordUnix");
 
-var userdata {
-  login: 'login_x',
-  password: '******',
-  token: Blih.generateToken('******')
-};
-
-Blih.getRepositories(userData, function (data) {
+/**
+ * Blih function - get all repositories name
+ * @param  {function} callback function(data)
+ */
+Blih.getRepositories(function (data) {
   for (key in data.repositories)
   {
     console.log(key);
