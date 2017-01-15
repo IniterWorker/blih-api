@@ -29,12 +29,12 @@ function Blih(login, password) {
  * @param  {string} username Unix login_x
  * @param  {string} password Unix password
  */
-Blih.prototype.setUserData(login, password) {
+Blih.prototype.setUserData = function(login, password) {
     this.userData = {
         login: login,
         password: password,
         token: this.generateToken(password)
-    }
+    };
 }
 
 /**
