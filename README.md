@@ -7,6 +7,8 @@
 @License: MIT
 -->
 
+[![npm version](https://badge.fury.io/js/blih-api.svg)](https://badge.fury.io/js/blih-api)
+
 # blih-api
 A simple interface in JavaScript to use the Epitech system.
 
@@ -21,13 +23,16 @@ npm install --save blih-api
 
 ```js
 var blihApi = require('blih-api');
-var Blih = new blihApi("login_x", "passwordUnix");
+var Blih = new blihApi("email", "passwordUnix");
 
 /**
  * Blih function - get all repositories name
- * @param  {function} callback function(data)
+ * @param  {function} callback function(error, data)
  */
-Blih.getRepositories(function (data) {
+Blih.getRepositories(function (error, data) {
+  if (error)
+    console.error(error);
+
   for (key in data.repositories)
   {
     console.log(key);
